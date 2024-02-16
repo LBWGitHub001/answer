@@ -1,7 +1,0 @@
-# ninja log v5
-1	394	1708090970946366425	build.ninja	d29ed546abdc4e69
-4	12590	1708070217514412185	CMakeFiles/answer_node.dir/include/answer/Subscription.cpp.o	b7c9571c9a04c233
-1	5767	1708090068802184978	CMakeFiles/answer_node.dir/include/answer/Terminal.cpp.o	d44a6406c0e8c743
-5767	6121	1708090069170216167	answer_node	e6d87ef4e66a36ee
-1	2867	1708071037703931908	CMakeFiles/answer_node.dir/include/answer/Publisher.cpp.o	4d1049b2391ad4ac
-1	2439	1708090065489903679	CMakeFiles/answer_node.dir/src/answer.cpp.o	db1bd292cbdbadc

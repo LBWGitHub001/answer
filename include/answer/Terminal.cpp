@@ -41,8 +41,8 @@ void Terminal::callback(sensor_msgs::msg::Image msg) {
         line(Lines, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]),
              cv::Scalar(0, 0, 255), 3, cv::LINE_AA);
     }
-    LineSet.push(Lines);                //向队列中添加
-    LineProcess();
+    //LineSet.push(Lines);                //向队列中添加
+    save("Lines",Lines);
 
     cv::Mat grayClick;
     cv::threshold(click,grayClick,200,255,cv::THRESH_BINARY);
