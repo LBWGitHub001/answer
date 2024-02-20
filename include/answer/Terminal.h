@@ -29,7 +29,7 @@ private:
 
     void callback(sensor_msgs::msg::Image msg);
     void save(std::string name,cv::Mat image);
-    void LineProcess();
+    void rangeIn(cv::Mat image,cv::Point str,cv::Point end);
 public:
     Terminal();
 
