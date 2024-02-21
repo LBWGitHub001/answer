@@ -1,0 +1,4 @@
+# ninja log v5
+4	5327	1708496248575329098	CMakeFiles/answer_node.dir/include/answer/Terminal.cpp.o	d44a6406c0e8c743
+5327	5683	1708496248935333853	answer_node	e6d87ef4e66a36ee
+0	2416	1708438991810563262	CMakeFiles/answer_node.dir/src/answer.cpp.o	db1bd292cbdbadc

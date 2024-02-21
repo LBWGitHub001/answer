@@ -43,7 +43,7 @@ void Terminal::callback(sensor_msgs::msg::Image msg) {
     cv::Mat click = image.clone();
     cv::Mat lineFound(image.rows,image.cols,CV_8UC1);
 
-
+/*
     for (size_t i = 0; i < lines.size(); i++)
     {
         cv::Vec4f l = lines[i];
@@ -69,6 +69,24 @@ void Terminal::callback(sensor_msgs::msg::Image msg) {
     }
 str.y-=10;
 end.y+=10;
+ */
+
+std::vector<int> str;
+std::vector<int> end;
+    for(int i = 0;i >= rows;i++){
+        if(image.at<int>(0,i) == 255){
+            str.push_back(i);
+        }
+
+    }
+    for(int i = 0;i >= rows;i++){
+        if(image.at<int>(cols+1,i) == 255){
+            end.push_back(i);
+        }
+    }
+    for(auto& iter : str)
+        RCLCPP_INFO_STREAM(get_logger(),iter<<" ");
+
     std::vector<cv::Mat> Channel;
     cv::Mat blueChannel;
     cv::split(image,Channel);
@@ -89,7 +107,7 @@ end.y+=10;
     cv::bitwise_and(clickFound,lineFound,xorResult);
     //RCLCPP_INFO_STREAM(get_logger(),"X\n"<<xorResult);
     //save("XOR",xorResult);
-    rangeIn(xorResult,str,end);
+    //rangeIn(xorResult,str,end);
     //RCLCPP_INFO_STREAM(get_logger(),"Y");
     //save("Result",xorResult);
 
