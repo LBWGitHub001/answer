@@ -45,12 +45,24 @@ std::vector<int> end;
         }
     }
 
-    cv::Point pLU;pLU.x=0;pLU.y=(str[0]+str[str.size()-1])/2;
-    cv::Point pRD;pRD.x=cols-1;pRD.y=(end[0]+end[end.size()-1])/2;
+    cv::Point pLU;pLU.x=0;
+    if(str.empty() == 1){
+        pLU.y = cols/2;
+    }
+    else{
+        pLU.y=(str[1]+str[str.size()-1])/2;
+    }
+    cv::Point pRD;pRD.x=cols-1;
+    if(str.empty() == 1){
+        pRD.y = cols/2;
+    }
+    else{
+        pRD.y=(end[1]+end[end.size()-1])/2;
+    }
     //RCLCPP_INFO_STREAM(get_logger(),"Size:"<<str.size()<<" "<<end.size());
     //RCLCPP_INFO_STREAM(get_logger(),"Line:"<<pLU.y<<" "<<pRD.y);
     cv::Mat lineFound = cv::Mat::zeros(image.rows,image.cols,CV_8UC1);
-    int bias=60;
+    int bias=70;
     //设置线的宽度，用来解决延迟问题
     line(lineFound,pLU,pRD,255,bias,cv::LINE_AA);
     //
