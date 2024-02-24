@@ -1,0 +1,4 @@
+# ninja log v5
+1	5273	1708607797074317967	CMakeFiles/answer_node.dir/include/answer/Terminal.cpp.o	d44a6406c0e8c743
+5273	5611	1708607797418325439	answer_node	e6d87ef4e66a36ee
+0	2238	1708607422929471910	CMakeFiles/answer_node.dir/src/answer.cpp.o	db1bd292cbdbadc

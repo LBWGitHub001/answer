@@ -61,7 +61,7 @@ endif ()
 
 install(DIRECTORY
 	launch
-	DESTINATION share/${PROJECT}/
+	DESTINATION share/${PROJECT_NAME}/
 )
 
 

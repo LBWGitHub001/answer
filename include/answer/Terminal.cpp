@@ -60,7 +60,7 @@ std::vector<int> end;
         pRD.y=(end[1]+end[end.size()-1])/2;
     }
     //RCLCPP_INFO_STREAM(get_logger(),"Size:"<<str.size()<<" "<<end.size());
-    //RCLCPP_INFO_STREAM(get_logger(),"Line:"<<pLU.y<<" "<<pRD.y);
+    RCLCPP_INFO_STREAM(get_logger(),"Line:"<<pLU.y<<" "<<pRD.y);
     cv::Mat lineFound = cv::Mat::zeros(image.rows,image.cols,CV_8UC1);
     int bias=70;
     //设置线的宽度，用来解决延迟问题
@@ -86,6 +86,7 @@ std::vector<int> end;
     //cv::imwrite("show.png",image);
     //cv::imwrite("find.png",andResult);
     pLU.y-=bias;pRD.y+=bias;
+    int up,down;
 
     cv::Mat Found(andResult,cv::Range(pLU.y,pRD.y)
                   ,cv::Range(0,cols));
