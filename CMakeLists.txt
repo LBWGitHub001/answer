@@ -38,6 +38,7 @@ add_executable(${PROJECT_NAME}_node
         src/answer.cpp
         include/answer/Terminal.h
         include/answer/Terminal.cpp
+        include/answer/function.cpp
 )
 target_link_libraries(${PROJECT_NAME}_node ${OpenCV_LIBRARIES})
 ament_target_dependencies(${PROJECT_NAME}_node ${AMENT_DEPENDENCIES})
