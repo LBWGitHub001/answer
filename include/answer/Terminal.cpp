@@ -33,13 +33,10 @@ void Terminal::callback(sensor_msgs::msg::Image msg) {
 
 std::vector<int> str;
 std::vector<int> end;
-    //RCLCPP_INFO_STREAM(get_logger(),"image:rows:" << rows<<" cols:"<<cols);
+
     //通过边境获取判定线的两个端点，从而确定这条直线
-
-
-    //如果没有找到，那么就尝试在底部查找
     cv::Point pLU;pLU.x=0;pLU.y=0;int bias=80;
-    for(int i = 0;i <= rows;i++){
+    for(int i = 0;i <= rows;i++){//尝试从左边界查找
         if(binImage.at<uchar>(i,0) >= 200){
             str.push_back(i);
         }
@@ -54,18 +51,18 @@ std::vector<int> end;
             }
         }
     }
-    else{
+    else{               //左边界找到端点
         pLU.y=(str[1]+str[str.size()-1])/2 - bias;
         pLU.x=0;
     }
     //查找右端点
     cv::Point pRD;pRD.x=cols-1;pRD.y=rows-1;
-    for(int i = 0;i <= rows;i++){
+    for(int i = 0;i <= rows;i++){//尝试从右边界查找端点
         if(binImage.at<uchar>(i,cols-1) > 200){
             end.push_back(i);
         }
     }
-    if(end.empty() == 1){
+    if(end.empty() == 1){//右边界没有找到端点
         for(int i = 0;i < cols;i++){
             if (binImage.at<uchar>(rows,i) > 200){//在底部查找
                 pRD.x = i + bias;
@@ -74,7 +71,7 @@ std::vector<int> end;
             }
         }
     }
-    else{
+    else{                   //右边界找到了端点
         pRD.y=(end[1]+end[end.size()-1])/2 + bias;
         pRD.x=rows-1;
     }
@@ -84,7 +81,7 @@ std::vector<int> end;
 
     int up = min(pLU.y,pRD.y),down = max(pLU.y,pRD.y);
     //设置线的宽度，用来解决延迟问题
-    line(lineFound,pLU,pRD,255,bias,cv::LINE_AA);
+    rectangle(lineFound,pLU,pRD,255,bias,cv::LINE_AA);
     //
     std::vector<cv::Mat> Channel;
     cv::split(image,Channel);
@@ -101,13 +98,14 @@ std::vector<int> end;
     cv::bitwise_and(clickFound,lineFound,andResult);
 
     cv::Mat show;
-    line(image,cv::Point(pLU.x+500,pLU.y),pRD,cv::Scalar(0,0,255),
-         bias,8);
+    rectangle(image,pLU,pRD,cv::Scalar(0,0,255),
+         1,8);
     //cv::imwrite("show.png",image);
     //cv::imwrite("find.png",andResult);
     //up是判定线左上角的y坐标，down是判定线右下角的y坐标
     cv::Mat Found(andResult,cv::Range(up,down)
                   ,cv::Range(0,cols));
+    //save("Found",image);
     int index=0;int count=0;
     for(auto iter = Found.begin<uchar>();
     iter != Found.end<uchar>();++iter){
