@@ -35,7 +35,7 @@ std::vector<int> str;
 std::vector<int> end;
 
     //通过边境获取判定线的两个端点，从而确定这条直线
-    cv::Point pLU;pLU.x=0;pLU.y=0;int bias=90;
+    cv::Point pLU;pLU.x=0;pLU.y=0;int bias=80;
     for(int i = 0;i <= rows;i++){//尝试从左边界查找
         if(binImage.at<uchar>(i,0) >= 200){
             str.push_back(i);
@@ -73,10 +73,8 @@ std::vector<int> end;
     }
     else{                   //右边界找到了端点
         pRD.y=(end[1]+end[end.size()-1])/2 + bias;
-        pRD.x=rows-1;
+        pRD.x=cols-1;
     }
-    //RCLCPP_INFO_STREAM(get_logger(),"Size:"<<str.size()<<" "<<end.size());
-    RCLCPP_INFO_STREAM(get_logger(),"Line:"<<pLU.y<<" "<<pRD.y);
     cv::Mat lineFound = cv::Mat::zeros(image.rows,image.cols,CV_8UC1);
 
     int up = min(pLU.y,pRD.y),down = max(pLU.y,pRD.y);
