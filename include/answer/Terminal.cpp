@@ -35,7 +35,7 @@ std::vector<int> str;
 std::vector<int> end;
 
     //通过边境获取判定线的两个端点，从而确定这条直线
-    cv::Point pLU;pLU.x=0;pLU.y=0;int bias=80;
+    cv::Point pLU;pLU.x=0;pLU.y=0;int bias=90;
     for(int i = 0;i <= rows;i++){//尝试从左边界查找
         if(binImage.at<uchar>(i,0) >= 200){
             str.push_back(i);
