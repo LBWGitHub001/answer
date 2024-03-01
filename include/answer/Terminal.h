@@ -24,12 +24,8 @@ class Terminal : public rclcpp::Node{
 private:
     rclcpp::Publisher<geometry_msgs::msg::Point32>::SharedPtr Publisher_;
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr Subscription_;
-    cv::Mat click;
-    static std::queue<cv::Mat> LineSet;
-    static int count;
 
     void callback(sensor_msgs::msg::Image msg);
-    void save(std::string name,cv::Mat image);
 public:
     Terminal();
 
