@@ -13,7 +13,7 @@ Terminal::Terminal() : Node("Terminal"){
 }
 
 void Terminal::callback(sensor_msgs::msg::Image msg) {
-    int bias = 15;
+    int bias = 50;
     cv_bridge::CvImagePtr cvImage;
     cvImage = cv_bridge::toCvCopy(msg, msg.encoding);
     cv::Mat image = cvImage->image;
@@ -31,9 +31,8 @@ void Terminal::callback(sensor_msgs::msg::Image msg) {
     cv::minMaxLoc(leftCorr,0,0,0,&Point);
 
     cv::Mat lineFound = cv::Mat::zeros(rows,cols,CV_8UC1);
-    if(Point.x+Point.y!=0) {
+    if((Point.x+Point.y)!=0) {
         cv::line(lineFound, Point, cv::Point(cols - 1, Point.y), 255, bias, 8);
-
         std::vector<cv::Mat> Channel;
         cv::split(image, Channel);
         cv::threshold(Channel[2], Channel[2], 200, 255, cv::THRESH_BINARY);
@@ -47,13 +46,13 @@ void Terminal::callback(sensor_msgs::msg::Image msg) {
         cv::Point touchPoint;
         cv::Mat Result(andResult, cv::Range(Point.y - bias, Point.y + bias), cv::Range(0, cols));
         cv::minMaxLoc(Result, 0, 0, 0, &touchPoint);
-
         geometry_msgs::msg::Point32 output;
-        output.x = touchPoint.x+10;
-        output.y = touchPoint.y;
-        Publisher_->publish(output);
+        output.x = touchPoint.x;
+        if(output.x!=0) {
+            output.y = touchPoint.y + Point.y - bias;
+            Publisher_->publish(output);
+        }
     }
 
 
 }
-
